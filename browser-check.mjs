@@ -19,7 +19,8 @@ try {
  await call('Emulation.setDeviceMetricsOverride',{width:1440,height:1200,deviceScaleFactor:1,mobile:false});
  async function load(hash=''){await call('Page.navigate',{url:'about:blank'});await call('Page.navigate',{url:'file://'+root+'/out/dashboard/index.html'+hash});for(let i=0;i<100;i++){if(await evaluate("document.querySelector('#results tbody tr')!==null"))return;await new Promise(r=>setTimeout(r,50));}throw Error('Render timeout');}
  async function shot(name){const x=await call('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});fs.writeFileSync('screenshots/'+name,Buffer.from(x.data,'base64'));}
- const s=JSON.parse(fs.readFileSync('input/snapshot.json')),board=JSON.parse(fs.readFileSync('out/board.json')).rows;
+ const snapshotPath=process.env.SNAPSHOT||(fs.existsSync('input/snapshot.json')?'input/snapshot.json':'/input/snapshot.json');
+ const s=JSON.parse(fs.readFileSync(snapshotPath)),board=JSON.parse(fs.readFileSync('out/board.json')).rows;
  await load();
  assert.equal(await evaluate("document.querySelectorAll('#results tbody tr').length"),board.length);
  await shot('1-board.png');

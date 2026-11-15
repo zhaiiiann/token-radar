@@ -10,7 +10,9 @@ A comps-calibrated research dashboard for the [make.fun token launch radar bount
 
 From this directory, using Node 22.18 or later and no packages:
 
-    MAKEFUN_OUTPUT_DIR=out /opt/node22/bin/node main.ts --input input/snapshot.json
+    MAKEFUN_OUTPUT_DIR=out /opt/node22/bin/node main.ts --input <path-ke-kit>/input/snapshot.json
+
+The snapshot ships in the competition kit (`input/snapshot.json`); the grader mounts it at `/input`.
 
 Open `out/dashboard/index.html`. The static dashboard reads `../data.js`; opening the source HTML before building will not load data. Default grader paths remain `/input/snapshot.json` and `/output`.
 
